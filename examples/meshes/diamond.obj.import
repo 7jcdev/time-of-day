@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dfonc4d1d51cp"
+path="res://.godot/imported/diamond.obj-ad5be37891ab0dc49c84c80d34fc9983.mesh"
+
+[deps]
+
+files=["res://.godot/imported/diamond.obj-ad5be37891ab0dc49c84c80d34fc9983.mesh"]
+
+source_file="res://addons/jc.time-of-day/examples/meshes/diamond.obj"
+dest_files=["res://.godot/imported/diamond.obj-ad5be37891ab0dc49c84c80d34fc9983.mesh", "res://.godot/imported/diamond.obj-ad5be37891ab0dc49c84c80d34fc9983.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

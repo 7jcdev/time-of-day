@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dchr5h3kpp3af"
+path="res://.godot/imported/gear.obj-76002c642c0981038f535bc818430a99.mesh"
+
+[deps]
+
+files=["res://.godot/imported/gear.obj-76002c642c0981038f535bc818430a99.mesh"]
+
+source_file="res://addons/jc.time-of-day/examples/meshes/gear.obj"
+dest_files=["res://.godot/imported/gear.obj-76002c642c0981038f535bc818430a99.mesh", "res://.godot/imported/gear.obj-76002c642c0981038f535bc818430a99.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

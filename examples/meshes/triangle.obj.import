@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bi530813dxe7n"
+path="res://.godot/imported/triangle.obj-40e551889cf52b2ecccbe404adb73a10.mesh"
+
+[deps]
+
+files=["res://.godot/imported/triangle.obj-40e551889cf52b2ecccbe404adb73a10.mesh"]
+
+source_file="res://addons/jc.time-of-day/examples/meshes/triangle.obj"
+dest_files=["res://.godot/imported/triangle.obj-40e551889cf52b2ecccbe404adb73a10.mesh", "res://.godot/imported/triangle.obj-40e551889cf52b2ecccbe404adb73a10.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
