@@ -2,14 +2,12 @@
 ToD plugin for godot 4.
 ---------------------------------------------
 
-
-![_Ork76](https://github.com/7Arz/jc.time-of-day/assets/75779389/5d3e5f9a-b679-4a18-9525-6b91a478a261)
-
+![Z1xbOv](https://github.com/broken-kernel/time-of-day/assets/73777890/07e73597-7442-4fb3-b967-089597b93e5d)
 
 ## Status:
 > 1.5.x Archived.
 ---------------------------------------------
 ## Install:
-- Add jc.time-of-day folder in addons folder.
+- Add time-of-day folder in addons folder.
 - Reset Godot editor.
 - Active plugin(Project/Project Settings/Plugin).
