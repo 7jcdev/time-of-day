@@ -315,7 +315,7 @@ var clouds_noise_tex: Texture = null:
 		emit_changed()
 
 @export
-var clouds_noise_freq: float = 2.1:
+var clouds_noise_freq: float = 2.6:
 	get: return clouds_noise_freq
 	set(value):
 		clouds_noise_freq = value
