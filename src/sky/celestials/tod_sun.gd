@@ -1,11 +1,10 @@
-@tool @icon('res://addons/jc.time-of-day/icons/sun.svg')
-class_name TOD_Sun extends TOD_Celestial
+@tool @icon("res://addons/time-of-day/icons/sun.svg")
+extends TOD_Celestial
+class_name TOD_Sun
 
-enum SunValueType{COLOR = 0, INTENSITY = 1, SIZE = 2}
-const VALUE_CHANGED:= &'value_changed'
-signal value_changed(type)
+enum SunValueType{ COLOR = 0, INTENSITY = 1, SIZE = 2 }
 
-@export_group('Disk')
+@export_group("Disk")
 @export_color_no_alpha
 var disk_color:= Color(1, 0.7058, 0.4470):
 	get: return disk_color
@@ -27,10 +26,16 @@ var disk_size:= 0.005:
 		disk_size = value
 		emit_signal(VALUE_CHANGED, SunValueType.SIZE)
 
-var parent: TOD_Sky = null
+func _on_enter_tree() -> void:
+	GlobalCelestials.add_sun(self)
+	super()
+
+func _exit_tree() -> void:
+	GlobalCelestials.remove_sun(self)
+
 func _initialize_params() -> void:
 	super()
 	disk_color = disk_color
 	disk_intensity = disk_intensity
 	disk_size = disk_size
-	#anisotropy = anisotropy
+	

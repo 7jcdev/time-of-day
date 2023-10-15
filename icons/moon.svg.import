@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://e6lau4oippmv"
-path="res://.godot/imported/moon.svg-ee4f70b1d33478c035e2e560e3b2dc0e.ctex"
+path="res://.godot/imported/moon.svg-f8c9569bdbb8ffafbe3882124a1d6d15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/jc.time-of-day/icons/moon.svg"
-dest_files=["res://.godot/imported/moon.svg-ee4f70b1d33478c035e2e560e3b2dc0e.ctex"]
+source_file="res://addons/time-of-day/icons/moon.svg"
+dest_files=["res://.godot/imported/moon.svg-f8c9569bdbb8ffafbe3882124a1d6d15.ctex"]
 
 [params]
 

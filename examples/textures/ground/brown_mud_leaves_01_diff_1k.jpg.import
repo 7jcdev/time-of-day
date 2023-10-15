@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwut40ppaci7g"
-path.s3tc="res://.godot/imported/brown_mud_leaves_01_diff_1k.jpg-9c61b141c2deee09543bec52803ab316.s3tc.ctex"
+path.s3tc="res://.godot/imported/brown_mud_leaves_01_diff_1k.jpg-f4978eb66e05c8cd3faf14e0dd7cad9c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/jc.time-of-day/examples/textures/ground/brown_mud_leaves_01_diff_1k.jpg"
-dest_files=["res://.godot/imported/brown_mud_leaves_01_diff_1k.jpg-9c61b141c2deee09543bec52803ab316.s3tc.ctex"]
+source_file="res://addons/time-of-day/examples/textures/ground/brown_mud_leaves_01_diff_1k.jpg"
+dest_files=["res://.godot/imported/brown_mud_leaves_01_diff_1k.jpg-f4978eb66e05c8cd3faf14e0dd7cad9c.s3tc.ctex"]
 
 [params]
 

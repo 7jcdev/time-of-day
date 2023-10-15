@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2upqcmbgbunj"
-path.s3tc="res://.godot/imported/Sky.svg-d603c60c0c368cf5497d1f4acb8aaeb9.s3tc.ctex"
+path.s3tc="res://.godot/imported/Sky.svg-a7484aaa9a69ca7849466d19a1672c27.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/jc.time-of-day/icons/Sky.svg"
-dest_files=["res://.godot/imported/Sky.svg-d603c60c0c368cf5497d1f4acb8aaeb9.s3tc.ctex"]
+source_file="res://addons/time-of-day/icons/Sky.svg"
+dest_files=["res://.godot/imported/Sky.svg-a7484aaa9a69ca7849466d19a1672c27.s3tc.ctex"]
 
 [params]
 

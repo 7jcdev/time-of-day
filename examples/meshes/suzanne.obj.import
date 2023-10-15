@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://dupj7jnslelh6"
-path="res://.godot/imported/suzanne.obj-96ee4cd763d6245bfccc04a8d3f08397.mesh"
+path="res://.godot/imported/suzanne.obj-7a5c02ed9e6adba1ede53c4e3cd287cb.mesh"
 
 [deps]
 
-files=["res://.godot/imported/suzanne.obj-96ee4cd763d6245bfccc04a8d3f08397.mesh"]
+files=["res://.godot/imported/suzanne.obj-7a5c02ed9e6adba1ede53c4e3cd287cb.mesh"]
 
-source_file="res://addons/jc.time-of-day/examples/meshes/suzanne.obj"
-dest_files=["res://.godot/imported/suzanne.obj-96ee4cd763d6245bfccc04a8d3f08397.mesh", "res://.godot/imported/suzanne.obj-96ee4cd763d6245bfccc04a8d3f08397.mesh"]
+source_file="res://addons/time-of-day/examples/meshes/suzanne.obj"
+dest_files=["res://.godot/imported/suzanne.obj-7a5c02ed9e6adba1ede53c4e3cd287cb.mesh", "res://.godot/imported/suzanne.obj-7a5c02ed9e6adba1ede53c4e3cd287cb.mesh"]
 
 [params]
 
@@ -19,3 +19,4 @@ generate_tangents=true
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true
+force_disable_mesh_compression=false

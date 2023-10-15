@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://6yq52wchap36"
-path="res://.godot/imported/torus.obj-39b1678ed2e02d9f9f9ece1579f9973e.mesh"
+path="res://.godot/imported/torus.obj-a4267044e5e43ee89357e91e7fbc60b7.mesh"
 
 [deps]
 
-files=["res://.godot/imported/torus.obj-39b1678ed2e02d9f9f9ece1579f9973e.mesh"]
+files=["res://.godot/imported/torus.obj-a4267044e5e43ee89357e91e7fbc60b7.mesh"]
 
-source_file="res://addons/jc.time-of-day/examples/meshes/torus.obj"
-dest_files=["res://.godot/imported/torus.obj-39b1678ed2e02d9f9f9ece1579f9973e.mesh", "res://.godot/imported/torus.obj-39b1678ed2e02d9f9f9ece1579f9973e.mesh"]
+source_file="res://addons/time-of-day/examples/meshes/torus.obj"
+dest_files=["res://.godot/imported/torus.obj-a4267044e5e43ee89357e91e7fbc60b7.mesh", "res://.godot/imported/torus.obj-a4267044e5e43ee89357e91e7fbc60b7.mesh"]
 
 [params]
 
@@ -19,3 +19,4 @@ generate_tangents=true
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true
+force_disable_mesh_compression=false

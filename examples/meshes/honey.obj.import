@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://bnpgssjwc1ypx"
-path="res://.godot/imported/honey.obj-49acd8108312c30b458abd5e2c33d6c8.mesh"
+path="res://.godot/imported/honey.obj-6d3e8d6fc7253c034033e607eceb63c9.mesh"
 
 [deps]
 
-files=["res://.godot/imported/honey.obj-49acd8108312c30b458abd5e2c33d6c8.mesh"]
+files=["res://.godot/imported/honey.obj-6d3e8d6fc7253c034033e607eceb63c9.mesh"]
 
-source_file="res://addons/jc.time-of-day/examples/meshes/honey.obj"
-dest_files=["res://.godot/imported/honey.obj-49acd8108312c30b458abd5e2c33d6c8.mesh", "res://.godot/imported/honey.obj-49acd8108312c30b458abd5e2c33d6c8.mesh"]
+source_file="res://addons/time-of-day/examples/meshes/honey.obj"
+dest_files=["res://.godot/imported/honey.obj-6d3e8d6fc7253c034033e607eceb63c9.mesh", "res://.godot/imported/honey.obj-6d3e8d6fc7253c034033e607eceb63c9.mesh"]
 
 [params]
 
@@ -19,3 +19,4 @@ generate_tangents=true
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true
+force_disable_mesh_compression=false

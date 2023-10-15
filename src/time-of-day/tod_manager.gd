@@ -1,12 +1,10 @@
-@tool @icon('res://addons/jc.time-of-day/icons/Sky.svg')
+@tool @icon("res://addons/time-of-day/icons/Sky.svg")
 class_name TOD_Manager extends Node
 
 var editor_hint: bool:
 	get: return Engine.is_editor_hint()
 
-# Nodes.
-# ------------------------------------------------------------------------------
-@export_group('Nodes')
+@export_group("Nodes")
 @export
 var sky_path: NodePath:
 	get: return sky_path
@@ -17,31 +15,25 @@ var sky_path: NodePath:
 		if _sky != null:
 			_set_celestials_coords()
 
-@export
-var sun_path: NodePath:
-	get: return sun_path
+var _sun: TOD_Sun:
+	get: return _sun
 	set(value):
-		sun_path = value
-		_sun = get_node_or_null(sun_path)
+		_sun = value
 		if _sun != null:
 			_set_celestials_coords()
 
-@export
-var moon_path: NodePath:
-	get: return moon_path
+var _moon: TOD_Moon:
+	get: return _moon
 	set(value):
-		moon_path = value
-		_moon = get_node_or_null(moon_path)
+		_moon = value
 		if _moon != null:
 			_set_celestials_coords()
 
 var _sky: TOD_Sky = null
-var _sun: TOD_Sun = null
-var _moon: TOD_Moon = null
 
 # Date Time.
 # ------------------------------------------------------------------------------
-@export_group('DateTime')
+@export_group("DateTime")
 signal timeline_changed(value)
 signal day_changed(value)
 signal month_changed(value)
@@ -55,7 +47,7 @@ var timeline: float = 7.0:
 	get: return timeline
 	set(value):
 		timeline = value
-		emit_signal(&'timeline_changed', timeline)
+		emit_signal(&"timeline_changed", timeline)
 		if editor_hint:
 			_set_celestials_coords()
 
@@ -64,7 +56,7 @@ var day: int  = 12:
 	get: return day
 	set(value):
 		day = value
-		emit_signal(&'day_changed', day)
+		emit_signal(&"day_changed", day)
 		if editor_hint:
 			_set_celestials_coords()
 
@@ -73,7 +65,7 @@ var month: int = 2:
 	get: return month
 	set(value):
 		month = value
-		emit_signal(&'month_changed', month)
+		emit_signal(&"month_changed", month)
 		if editor_hint:
 			_set_celestials_coords()
 
@@ -82,7 +74,7 @@ var year: int = 2022:
 	get: return year
 	set(value):
 		year = value
-		emit_signal(&'year_changed', year)
+		emit_signal(&"year_changed", year)
 		if editor_hint:
 			_set_celestials_coords()
 
@@ -115,13 +107,13 @@ var _date_time_os: Dictionary
 # ------------------------------------------------------------------------------
 enum CelestialsCalculation{ SIMPLE = 0, REALISTIC }
 
-@export_group('Planetary')
+@export_group("Planetary")
 @export
 var celestials_update_time: float = 0.0
 
-@export_subgroup('Features')
+@export_subgroup("Features")
 
-@export_enum('Simple', 'Realistic')
+@export_enum("Simple", "Realistic")
 var celestials_calculations: int = CelestialsCalculation.REALISTIC:
 	get: return celestials_calculations
 	set(value):
@@ -130,7 +122,7 @@ var celestials_calculations: int = CelestialsCalculation.REALISTIC:
 			_set_celestials_coords()
 
 @export
-var compute_moon_coords: bool = false:
+var compute_moon_coords: bool = true:
 	get: return compute_moon_coords
 	set(value):
 		compute_moon_coords = value
@@ -138,14 +130,14 @@ var compute_moon_coords: bool = false:
 			_set_celestials_coords()
 
 @export
-var compute_deep_space_coords: bool = false:
+var compute_deep_space_coords: bool = true:
 	get: return compute_deep_space_coords
 	set(value):
 		compute_deep_space_coords = value
 		if editor_hint:
 			_set_celestials_coords()
 
-@export_subgroup('Coords')
+@export_subgroup("Coords")
 @export_range(-90.0, 90.0)
 var latitude: float = 0.0:
 	get: return latitude
@@ -210,9 +202,25 @@ func _init() -> void:
 	pass
 
 func _enter_tree() -> void:
+	# Sun.
+	if !GlobalCelestials.sun_added.is_connected(_on_added_sun):
+		GlobalCelestials.sun_added.connect(_on_added_sun)
+	
+	if !GlobalCelestials.sun_removed.is_connected(_on_removed_sun):
+		GlobalCelestials.sun_removed.connect(_on_removed_sun)
+	
+	_on_added_sun()
+	
+	# Moon.
+	if !GlobalCelestials.moon_added.is_connected(_on_added_moon):
+		GlobalCelestials.moon_added.connect(_on_added_moon)
+	
+	if !GlobalCelestials.moon_removed.is_connected(_on_removed_sun):
+		GlobalCelestials.moon_removed.connect(_on_removed_moon)
+	
+	_on_added_moon()
+	
 	sky_path = sky_path
-	sun_path = sun_path
-	moon_path = moon_path
 	system_sync = system_sync
 	total_cycle_in_minutes = total_cycle_in_minutes
 	timeline = timeline
@@ -229,6 +237,35 @@ func _enter_tree() -> void:
 	longitude = longitude
 	utc = utc
 	moon_coords_offset = moon_coords_offset
+
+func _exit_tree() -> void:
+	# Sun.
+	if GlobalCelestials.sun_added.is_connected(_on_added_sun):
+		GlobalCelestials.sun_added.disconnect(_on_added_sun)
+	
+	if GlobalCelestials.sun_removed.is_connected(_on_removed_sun):
+		GlobalCelestials.sun_removed.disconnect(_on_removed_sun)
+	
+	# Moon.
+	if GlobalCelestials.moon_added.is_connected(_on_added_moon):
+		GlobalCelestials.moon_added.disconnect(_on_added_moon)
+	
+	if GlobalCelestials.moon_removed.is_connected(_on_removed_moon):
+		GlobalCelestials.moon_removed.disconnect(_on_removed_moon)
+
+func _on_added_sun() -> void:
+	if(GlobalCelestials.get_sun_celestials().size() > 0):
+		_sun = GlobalCelestials.get_sun_celestials()[0]
+
+func _on_removed_sun() -> void:
+	_sun = null
+
+func _on_added_moon() -> void:
+	if(GlobalCelestials.get_moon_celestials().size() > 0):
+		_moon = GlobalCelestials.get_moon_celestials()[0]
+
+func _on_removed_moon() -> void:
+	_moon = null
 
 func _process(delta: float) -> void:
 	if editor_hint:
@@ -556,5 +593,13 @@ func _set_celestials_coords() -> void:
 					if _sky.material != null:
 						
 						_sky.material.deep_space_quat = x * y
-			
 
+func _get_configuration_warnings():
+	if _sun == null && _moon == null:
+		return ["Celestials not found"]
+	elif _sun == null:
+		return ["Sun not found"]
+	elif _moon == null:
+		return ["Moon not found"]
+	
+	return []

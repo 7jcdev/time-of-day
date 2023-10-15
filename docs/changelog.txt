@@ -1,15 +1,11 @@
-
-V1.2x -> V1.5.0
-
-1- Godot 4 Support.
-2- Changed skydome for Godot 4 sky system.
-3- Changed sky desing.
-3- Improved classic atmospheric scattering.
-4- Improved ground color.
-4- Improved dynamic clouds.
-6- Added HQ sun disk.
-7- Remplaced moon render target based by ray sphere intersection.
-8- Improved sun and moon celestials.
-9- Removed static clouds(temporarily).
-10- Removed fog(temporarily). * You can now use godot's built-in fog to get similar results, see example scene.
-11- Added terrain example escene.
+-Added Celestial Body Mie Params.
+-Added Update for Gradients and Curves.
+-Improved Atmosphere.
+-Improved Stars Field Scintillation.
+-Improved Sky Setup.
+-Improved Dynamic Clouds
+-Removed Unnecesary Code.
+-Fixed MoonLight Energy.
+-Fixed Dynamic Clouds Colors.
+-Fixed Atmosphere Horizon Level.
+-Cleanup ALL Source Code.

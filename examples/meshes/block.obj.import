@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://kjt5o1ew78dh"
-path="res://.godot/imported/block.obj-83b8ec9b5f7f85b1a6b0dbc691d1fc2e.mesh"
+path="res://.godot/imported/block.obj-9f5d3a940a38f8e9fb593bccd488f909.mesh"
 
 [deps]
 
-files=["res://.godot/imported/block.obj-83b8ec9b5f7f85b1a6b0dbc691d1fc2e.mesh"]
+files=["res://.godot/imported/block.obj-9f5d3a940a38f8e9fb593bccd488f909.mesh"]
 
-source_file="res://addons/jc.time-of-day/examples/meshes/block.obj"
-dest_files=["res://.godot/imported/block.obj-83b8ec9b5f7f85b1a6b0dbc691d1fc2e.mesh", "res://.godot/imported/block.obj-83b8ec9b5f7f85b1a6b0dbc691d1fc2e.mesh"]
+source_file="res://addons/time-of-day/examples/meshes/block.obj"
+dest_files=["res://.godot/imported/block.obj-9f5d3a940a38f8e9fb593bccd488f909.mesh", "res://.godot/imported/block.obj-9f5d3a940a38f8e9fb593bccd488f909.mesh"]
 
 [params]
 
@@ -19,3 +19,4 @@ generate_tangents=true
 scale_mesh=Vector3(1, 1, 1)
 offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true
+force_disable_mesh_compression=false
