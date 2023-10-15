@@ -9,7 +9,7 @@ ToD plugin for godot 4.
 
 
 ## Status:
-> 1.6.x Dev
+> 1.6.x
 ---------------------------------------------
 
 ## Features:
