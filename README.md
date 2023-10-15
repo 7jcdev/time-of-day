@@ -11,6 +11,21 @@ ToD plugin for godot 4.
 ## Status:
 > 1.6.x Dev
 ---------------------------------------------
+
+## Features:
+
+- Dynamic Atmosphere.
+- Moon and Moon Phases.
+- Night Scattering.
+- DeepSpace.
+- Dynamic Clouds.
+- DateTime.
+- Sync System DateTime.
+- Simple Sun and Moon Positions.
+- Realistic Sun and Moon Positions.
+- Easy Setup.
+---------------------------------------------
+
 ## Install:
 - Add time-of-day folder in addons folder.
 - Reset Godot editor.
