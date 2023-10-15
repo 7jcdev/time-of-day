@@ -115,7 +115,7 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 		tint = mix(tint.rgb, tint.rgb * scatter + scatter, tod_clouds_atmosphere_inject);
 		
 		ret.rgb = mix(tint, vec3(0.0), exp(-ret.y)) * tod_clouds_intensity;
-		ret.a = alpha;
+		ret.a = alpha * alpha;
 	}
 	return ret;
 }
