@@ -3,6 +3,9 @@
 #include "res://addons/time-of-day/src/sky/shaders/common/tod_color_include.gdshaderinc"
 #include "res://addons/time-of-day/src/sky/shaders/common/tod_sky_variables.gdshaderinc"
 
+// Dynamic clouds based on:
+// https://github.com/danilw/godot-utils-and-other/blob/master/Dynamic%20sky%20and%20reflection/shaders/Sky.shader
+
 uniform sampler2D tod_clouds_noise_tex: source_color;
 uniform float tod_clouds_noise_freq = 3.0;
 uniform float tod_clouds_smooth = 0.05;
