@@ -16,20 +16,29 @@ var material: TOD_SkyMaterialBase:
 		_set_sky_to_enviro()
 		_on_added_sun()
 		_on_added_moon()
+		_connect_enviro_changed()
 
 @export
 var enviro_container: NodePath:
 	get: return enviro_container
 	set(value):
 		enviro_container = value
-		var container = get_node_or_null(value)
-		if is_instance_of(container, Camera3D) || \
-			is_instance_of(container, WorldEnvironment):
-				_enviro = container.environment
 		
-		_set_sky_to_enviro()
-		_on_added_sun()
-		_on_added_moon()
+		if enviro_container.is_empty():
+			_disconnect_enviro_changed()
+			_enviro.sky.sky_material = null
+			_enviro = null
+			print("no enviro")
+		else:
+			var container = get_node_or_null(value)
+			if is_instance_of(container, Camera3D) || \
+				is_instance_of(container, WorldEnvironment):
+					_enviro = container.environment
+			
+			_connect_enviro_changed()
+			_set_sky_to_enviro()
+			_on_added_sun()
+			_on_added_moon()
 
 var _enviro: Environment = null
 var enviro: Environment:
@@ -113,6 +122,7 @@ func _exit_tree() -> void:
 	
 	if _enviro != null:
 		_enviro.sky.sky_material = null
+		_disconnect_enviro_changed()
 
 func _connect_sun_signals() -> void:
 	if !_sun.direction_changed.is_connected(_on_sun_direction_changed):
@@ -241,7 +251,9 @@ func _on_moon_mie_value_changed(p_type: int) -> void:
 
 func _set_sky_to_enviro() -> void:
 	if _enviro == null:
+		_disconnect_enviro_changed()
 		return
+	
 	_enviro.background_mode = Environment.BG_SKY
 	if _enviro.sky == null:
 		_enviro.sky = Sky.new()
@@ -249,8 +261,30 @@ func _set_sky_to_enviro() -> void:
 		_enviro.sky.radiance_size = Sky.RADIANCE_SIZE_256 # NOTE: Radiance size supported by realtime.
 	if material != null:
 		_enviro.sky.sky_material = material.material
+		_on_enviro_changed()
 	else:
 		_enviro.sky.sky_material = null
+
+func _connect_enviro_changed():
+	if enviro == null:
+		return
+	
+	if !enviro.property_list_changed.is_connected(_on_enviro_changed):
+		enviro.property_list_changed.connect(_on_enviro_changed)
+	
+func _disconnect_enviro_changed():
+	if enviro == null:
+		return
+	if enviro.property_list_changed.is_connected(_on_enviro_changed):
+		enviro.property_list_changed.disconnect(_on_enviro_changed)
+
+func _on_enviro_changed():
+	if material == null:
+		return
+	if enviro.tonemap_mode == enviro.TONE_MAPPER_LINEAR:
+		material.tonemap_level = 1.0
+	else:
+		material.tonemap_level = 0.0
 
 func _get_configuration_warnings():
 	if _sun == null && _moon == null:

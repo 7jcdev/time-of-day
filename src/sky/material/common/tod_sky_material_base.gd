@@ -178,6 +178,16 @@ var get_sun_uMuS: float:
 	get: return 0.015 + (atan(max(sun_direction.y, - 0.1975) * tan(1.386))
 		* 0.9090 + 0.74) * 0.5 * (0.96875);
 
+#@export_range(0.0, 1.0)
+var tonemap_level: float = 0.0:
+	get: return tonemap_level
+	set(value):
+		tonemap_level = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_tonemap_level", tonemap_level
+		)
+		emit_changed()
+
 func _init() -> void:
 	_on_init()
 

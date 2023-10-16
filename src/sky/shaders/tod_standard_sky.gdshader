@@ -1,6 +1,7 @@
 shader_type sky;
 render_mode use_quarter_res_pass, use_half_res_pass;
 #define HIGH_QUALITY_SUN_DISK
+#define TONEMAP_ACES
 #include "atmosphere/tod_standard_atmosphere.gdshaderinc"
 #include "celestials/tod_sun.gdshaderinc"
 #include "celestials/tod_moon.gdshaderinc"
@@ -33,7 +34,7 @@ void sky(){
 	finalColor += (deepSpace + nearSpace) * horizonBlend;
 	finalColor += scatter;
 	
-	vec4 clouds = (renderDynamicClouds(vec3(0.0, tod_horizon_level, 0.0), worldPos, TIME, scatter));
+	vec4 clouds = (renderDynamicClouds(vec3(0.0, tod_horizon_level * 500.0, 0.0), worldPos, TIME, scatter));
 	//finalColor = mix(finalColor, clouds.rgb, clouds.a * horizonBlend);
 	if(AT_QUARTER_RES_PASS && AT_CUBEMAP_PASS){
 		COLOR = mix(finalColor, clouds.rgb, clouds.a * horizonBlend);

@@ -39,16 +39,6 @@ var exposure: float = 1.0:
 		)
 		emit_changed()
 
-@export_range(0.0, 1.0)
-var tonemap_level: float = 0.0:
-	get: return tonemap_level
-	set(value):
-		tonemap_level = value
-		RenderingServer.material_set_param(
-			_material.get_rid(), &"tod_tonemap_level", tonemap_level
-		)
-		emit_changed()
-
 @export_range(-1.0, 1.0)
 var horizon_level: float = 0.0:
 	get: return horizon_level
@@ -348,7 +338,7 @@ var clouds_shell_offset: float = -470.0:
 @export_subgroup('Density')
 
 @export
-var clouds_smooth: float = 0.07:
+var clouds_smooth: float = 0.085:
 	get: return clouds_smooth
 	set(value):
 		clouds_smooth = value
@@ -367,8 +357,8 @@ var clouds_coverage: float = 0.55:
 		)
 		emit_changed()
 
-@export_range(0.0, 40.0)#4
-var clouds_absorption: float = 10.0:
+@export_range(0.0, 10.0)#4
+var clouds_absorption: float = 1.9:
 	get: return clouds_absorption
 	set(value):
 		clouds_absorption = value
@@ -378,7 +368,7 @@ var clouds_absorption: float = 10.0:
 		emit_changed()
 
 @export_range(0.0, 20.0)#2
-var clouds_thickness: float = 5.0:
+var clouds_thickness: float = 4.0:
 	get: return clouds_thickness
 	set(value):
 		clouds_thickness = value
@@ -389,7 +379,7 @@ var clouds_thickness: float = 5.0:
 
 @export_subgroup('Color')
 @export
-var clouds_intensity: float = 20.0:
+var clouds_intensity: float = 5.0:
 	get: return clouds_intensity
 	set(value):
 		clouds_intensity = value
@@ -398,15 +388,15 @@ var clouds_intensity: float = 20.0:
 		)
 		emit_changed()
 
-@export_range(0.0, 1.0)
-var clouds_atmosphere_inject: float = 0.3:
-	get: return clouds_atmosphere_inject
-	set(value):
-		clouds_atmosphere_inject = value
-		RenderingServer.material_set_param(
-			_material.get_rid(), &"tod_clouds_atmosphere_inject", clouds_atmosphere_inject
-		)
-		emit_changed()
+#@export_range(0.0, 1.0)
+#var clouds_atmosphere_inject: float = 0.3:
+	#get: return clouds_atmosphere_inject
+	#set(value):
+		#clouds_atmosphere_inject = value
+		#RenderingServer.material_set_param(
+			#_material.get_rid(), &"tod_clouds_atmosphere_inject", clouds_atmosphere_inject
+		#)
+		#emit_changed()
 
 @export
 var clouds_zenith_color:= Color(0.835, 0.906, 1.0):
@@ -500,7 +490,7 @@ func _on_init() -> void:
 	
 	clouds_intensity = clouds_intensity
 	clouds_absorption = clouds_absorption
-	clouds_atmosphere_inject = clouds_atmosphere_inject
+	#clouds_atmosphere_inject = clouds_atmosphere_inject
 	clouds_thickness = clouds_thickness
 	clouds_zenith_color = clouds_zenith_color
 	clouds_horizon_color = clouds_horizon_color
