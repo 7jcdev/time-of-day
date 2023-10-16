@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://addons/time-of-day/src/sky/celestials/tod_sun.gd" id="9_r27e8"]
 [ext_resource type="Script" path="res://addons/time-of-day/src/sky/celestials/tod_moon.gd" id="10_e7lwf"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ft1ag"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0171"]
 shader = ExtResource("1_t6756")
 shader_parameter/tod_sun_direction = null
 shader_parameter/tod_sun_disk_color = null
@@ -61,7 +61,6 @@ shader_parameter/tod_clouds_intensity = 1.0
 shader_parameter/tod_clouds_zenith_color = null
 shader_parameter/tod_clouds_horizon_color = null
 shader_parameter/tod_clouds_night_color = null
-shader_parameter/tod_clouds_atmosphere_inject = null
 shader_parameter/tod_clouds_offset = null
 shader_parameter/tod_clouds_offset_speed = null
 shader_parameter/tod_moon_texture = ExtResource("4_5q2dt")
@@ -70,7 +69,7 @@ shader_parameter/tod_stars_field_texture = ExtResource("5_gyk4y")
 shader_parameter/tod_clouds_noise_tex = ExtResource("3_xjln4")
 
 [sub_resource type="Sky" id="Sky_6cw6f"]
-sky_material = SubResource("ShaderMaterial_ft1ag")
+sky_material = SubResource("ShaderMaterial_g0171")
 process_mode = 3
 
 [sub_resource type="Environment" id="Environment_o8uwd"]
@@ -87,7 +86,6 @@ colors = PackedColorArray(0.596078, 0.819608, 0.996078, 1, 1, 0.730178, 0.730178
 script = ExtResource("8_2fheb")
 apply_debanding = false
 exposure = 1.0
-tonemap_level = 0.0
 horizon_level = 0.0
 atm_wavelenghts = Vector3(680, 550, 440)
 atm_darkness = 0.1
@@ -112,15 +110,14 @@ stars_scintillation = 0.75
 stars_scintillation_speed = 1.0
 use_custom_clouds_noise_tex = false
 clouds_noise_tex = ExtResource("3_xjln4")
-clouds_noise_freq = 2.7
+clouds_noise_freq = 2.3
 clouds_size = 1.0
 clouds_shell_offset = -470.0
-clouds_smooth = 0.07
-clouds_coverage = 0.56198
-clouds_absorption = 10.0
-clouds_thickness = 5.0
-clouds_intensity = 20.0
-clouds_atmosphere_inject = 0.3
+clouds_smooth = 0.085
+clouds_coverage = 0.50653
+clouds_absorption = 1.9
+clouds_thickness = 4.0
+clouds_intensity = 5.0
 clouds_zenith_color = Color(0.835, 0.906, 1, 1)
 clouds_horizon_color = Color(1, 0.482, 0, 1)
 clouds_night_color = Color(0.1803, 0.3019, 0.5058, 1)
@@ -157,8 +154,7 @@ environment = SubResource("Environment_o8uwd")
 [node name="TOD_Manager" type="Node" parent="."]
 script = ExtResource("6_w105k")
 sky_path = NodePath("../TOD_Sky")
-total_cycle_in_minutes = 2.0
-timeline = 11.5802
+timeline = 12.8175
 
 [node name="TOD_Sky" type="Node" parent="."]
 script = ExtResource("7_dblke")
@@ -166,30 +162,32 @@ material = SubResource("Resource_hjtqi")
 enviro_container = NodePath("../WorldEnvironment")
 
 [node name="TOD_Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0, -0.98617, 0.165738, -0.249858, 0.160482, 0.954891, -0.968283, -0.041411, -0.246402, 0.165738, 0.954891, -0.246402)
+transform = Transform3D(0, -0.989165, -0.146811, -0.248813, -0.142194, 0.958057, -0.968551, 0.0365286, -0.246117, -0.146811, 0.958057, -0.246117)
 light_color = Color(1, 0.84551, 0.776214, 1)
 shadow_enabled = true
 script = ExtResource("9_r27e8")
 transform_type = 0
+mie_color = Color(1, 0.654902, 0.458824, 1)
 mie_anisotropy = 0.81184
 lighting_color_gradient = SubResource("Gradient_qmum6")
 lighting_energy_curve = SubResource("Curve_sy4qq")
-altitude = 17.2749
-azimuth = 146.074
+altitude = 16.6532
+azimuth = 210.816
 
 [node name="TOD_Moon" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0, -0.990788, -0.135426, 0.34733, 0.126995, -0.929104, 0.937743, -0.0470375, 0.34413, -0.135426, -0.929104, 0.34413)
+transform = Transform3D(0, -0.987672, 0.156536, 0.344752, -0.146939, -0.927122, 0.938694, 0.053966, 0.340502, 0.156536, -0.927122, 0.340502)
 light_color = Color(0.54, 0.7, 0.9, 1)
 light_energy = 0.0
 script = ExtResource("10_e7lwf")
+size = 0.02025
 texture = ExtResource("4_5q2dt")
 transform_type = 0
 mie_color = Color(0.165, 0.533, 1, 1)
 mie_intensity = 0.5
 lighting_color = Color(0.54, 0.7, 0.9, 1)
 lighting_energy = 0.3
-altitude = 158.296
-azimuth = 338.519
+altitude = 157.991
+azimuth = 24.6892
 
 [node name="Spheres" type="Node3D" parent="."]
 
