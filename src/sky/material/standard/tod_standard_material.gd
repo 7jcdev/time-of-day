@@ -446,6 +446,7 @@ var clouds_offset_speed: float = 0.1:
 func _on_init() -> void:
 	_material.shader = _SHADER
 	super()
+	atm_day_gradient = _DEFAULT_ATM_DAY_GRADIENT
 	apply_debanding = apply_debanding
 	exposure = exposure
 	tonemap_level = tonemap_level
