@@ -283,11 +283,6 @@ var stars_scintillation_speed: float = 1.0:
 		)
 		emit_changed()
 
-
-@export_group('Clouds')
-@export_subgroup('Noise')
-
-@export
 var use_custom_clouds_noise_tex: bool = false:
 	get: return use_custom_clouds_noise_tex
 	set(value):
@@ -297,7 +292,6 @@ var use_custom_clouds_noise_tex: bool = false:
 		else:
 			clouds_noise_tex = _DEFAULT_CLOUDS_NOISE
 
-@export
 var clouds_noise_tex: Texture = null:
 	get: return clouds_noise_tex
 	set(value):
@@ -307,7 +301,6 @@ var clouds_noise_tex: Texture = null:
 		)
 		emit_changed()
 
-@export
 var clouds_noise_freq: float = 2.6:
 	get: return clouds_noise_freq
 	set(value):
@@ -316,7 +309,7 @@ var clouds_noise_freq: float = 2.6:
 			_material.get_rid(), &"tod_clouds_noise_freq", clouds_noise_freq
 		)
 		emit_changed()
-@export
+
 var clouds_samples: int = 24:
 	get: return clouds_samples
 	set(value):
@@ -326,8 +319,6 @@ var clouds_samples: int = 24:
 		)
 		emit_changed()
 
-@export_subgroup('Coords')
-@export
 var clouds_size: float = 3.0:
 	get: return clouds_size
 	set(value):
@@ -337,7 +328,6 @@ var clouds_size: float = 3.0:
 		)
 		emit_changed()
 
-@export_range(-499.0, 499.0) 
 var clouds_shell_offset: float = -490.0:
 	get: return clouds_shell_offset
 	set(value):
@@ -347,9 +337,6 @@ var clouds_shell_offset: float = -490.0:
 		)
 		emit_changed()
 
-@export_subgroup('Density')
-
-@export
 var clouds_smooth: float = 0.085:
 	get: return clouds_smooth
 	set(value):
@@ -359,7 +346,6 @@ var clouds_smooth: float = 0.085:
 		)
 		emit_changed()
 
-@export_range(0.0, 1.0)
 var clouds_coverage: float = 0.55:
 	get: return clouds_coverage
 	set(value):
@@ -369,7 +355,6 @@ var clouds_coverage: float = 0.55:
 		)
 		emit_changed()
 
-@export_range(0.0, 10.0)#4
 var clouds_absorption: float = 5.0:
 	get: return clouds_absorption
 	set(value):
@@ -379,7 +364,6 @@ var clouds_absorption: float = 5.0:
 		)
 		emit_changed()
 
-@export_range(0.0, 20.0)#2
 var clouds_thickness: float = 2.2:
 	get: return clouds_thickness
 	set(value):
@@ -389,8 +373,6 @@ var clouds_thickness: float = 2.2:
 		)
 		emit_changed()
 
-@export_subgroup('Color')
-@export
 var clouds_intensity: float = 5.0:
 	get: return clouds_intensity
 	set(value):
@@ -410,7 +392,6 @@ var clouds_intensity: float = 5.0:
 		#)
 		#emit_changed()
 
-@export
 var clouds_night_color:= Color(0.1803, 0.3019, 0.5058):
 	get: return clouds_night_color
 	set(value):
@@ -418,7 +399,6 @@ var clouds_night_color:= Color(0.1803, 0.3019, 0.5058):
 		_set_clouds_night_color()
 		emit_changed()
 
-@export 
 var clouds_gradient: Gradient:
 	get: return clouds_gradient
 	set(value):
@@ -429,8 +409,6 @@ var clouds_gradient: Gradient:
 		_set_clouds_night_color()
 		emit_changed()
 
-@export_subgroup('Offset')
-@export
 var clouds_offset:= Vector3(0.05, -0.05, 0.01):
 	get: return clouds_offset
 	set(value):
@@ -440,7 +418,6 @@ var clouds_offset:= Vector3(0.05, -0.05, 0.01):
 		)
 		emit_changed()
 
-@export
 var clouds_offset_speed: float = 0.1:
 	get: return clouds_offset_speed
 	set(value):
@@ -598,3 +575,52 @@ func _set_clouds_night_color() -> void:
 	RenderingServer.material_set_param(
 		_material.get_rid(), &"tod_clouds_night_color", color
 	)
+
+func _get_property_list() -> Array:
+	var ret: Array
+	#ret.push_back({name = "Coords", type=TYPE_NIL, usage=PROPERTY_USAGE_GROUP})
+	ret.push_back({name = "Clouds", type=TYPE_NIL, usage=PROPERTY_USAGE_GROUP})
+	
+	# TODO: Add clouds mode.
+	
+	#Legacy Clouds
+	ret.push_back({name = "Noise", type=TYPE_NIL, usage=PROPERTY_USAGE_SUBGROUP})
+	ret.push_back({name="use_custom_clouds_noise_tex", type=TYPE_BOOL})
+	if use_custom_clouds_noise_tex:
+		ret.push_back({name="clouds_noise_tex", type=TYPE_OBJECT, 
+			hint=PROPERTY_HINT_RESOURCE_TYPE, hint_string="Texture"})
+	
+	ret.push_back({name="clouds_noise_freq", type=TYPE_FLOAT})
+	ret.push_back({name="clouds_samples", type=TYPE_INT})
+	
+	ret.push_back({name = "Coords", type=TYPE_NIL, usage=PROPERTY_USAGE_SUBGROUP})
+	ret.push_back({name="clouds_size", type=TYPE_FLOAT})
+	ret.push_back({name="clouds_shell_offset", type=TYPE_FLOAT, 
+		hint=PROPERTY_HINT_RANGE, hint_string="-499.0, 499"})
+	
+	ret.push_back({name = "Density", type=TYPE_NIL, usage=PROPERTY_USAGE_SUBGROUP})
+	ret.push_back({name="clouds_smooth", type=TYPE_FLOAT})
+	
+	ret.push_back({name="clouds_coverage", type=TYPE_FLOAT, 
+		hint=PROPERTY_HINT_RANGE, hint_string="0.0, 1.0"})
+	
+	ret.push_back({name="clouds_absorption", type=TYPE_FLOAT, 
+		hint=PROPERTY_HINT_RANGE, hint_string="0.0, 10.0"})
+		
+	ret.push_back({name="clouds_thickness", type=TYPE_FLOAT, 
+		hint=PROPERTY_HINT_RANGE, hint_string="0.0, 20.0"})
+	
+	ret.push_back({name = "Color", type=TYPE_NIL, usage=PROPERTY_USAGE_SUBGROUP})
+	ret.push_back({name="clouds_intensity", type=TYPE_FLOAT})
+	
+	ret.push_back({name="clouds_night_color", type=TYPE_COLOR})
+	
+	ret.push_back({name="clouds_gradient", type=TYPE_OBJECT, 
+			hint=PROPERTY_HINT_RESOURCE_TYPE, hint_string="Gradient"})
+	
+	ret.push_back({name = "Offsets", type=TYPE_NIL, usage=PROPERTY_USAGE_SUBGROUP})
+	ret.push_back({name="clouds_offset", type=TYPE_VECTOR3})
+	
+	ret.push_back({name="clouds_offset_speed", type=TYPE_FLOAT})
+	
+	return ret
