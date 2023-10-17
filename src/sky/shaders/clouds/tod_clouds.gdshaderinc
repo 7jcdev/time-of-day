@@ -3,9 +3,14 @@
 #include "res://addons/time-of-day/src/sky/shaders/common/tod_color_include.gdshaderinc"
 #include "res://addons/time-of-day/src/sky/shaders/common/tod_sky_variables.gdshaderinc"
 
+#ifndef LEGACY_CLOUDS
+#define LEGACY_CLOUDS
+#endif
+
 // Dynamic clouds based on:
 // https://github.com/danilw/godot-utils-and-other/blob/master/Dynamic%20sky%20and%20reflection/shaders/Sky.shader
 
+#ifdef LEGACY_CLOUDS
 uniform sampler2D tod_clouds_noise_tex: source_color;
 uniform float tod_clouds_noise_freq = 3.0;
 uniform float tod_clouds_smooth = 0.05;
@@ -93,8 +98,8 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 	);
 	
 	vec3 normal = vec3(0.0); float alpha = 0.0;
-	const int cloudsSteps = 24;
-	const int shadowSteps = 8;
+	const int cloudsSteps = 16;
+	const int shadowSteps = 4;
 	const float cloudsStepsRCP = 1.0/float(cloudsSteps);
 	const float shadowStepsRCP = 1.0/float(shadowSteps);
 	if(cloudsIntersectSphere(origin, dir, 500.0, normal)){
@@ -116,7 +121,7 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 			float tic = exp2(shadow * -tod_clouds_absorption * marchStep * shadowStepsRCP);
 			t*= (ti + tic) * 0.5;
 			t*=ti;
-			//if (t < 0.005) break;
+			//if (t < 0.001) break;
 			ret.rgb += t * (exp(h) * 0.571428571) * density * marchStep;
 			alpha += (1.0 - ti) * (1.0 - alpha);
 			position += dirStep;
@@ -133,5 +138,5 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 	}
 	return ret;
 }
-
+#endif
 #endif

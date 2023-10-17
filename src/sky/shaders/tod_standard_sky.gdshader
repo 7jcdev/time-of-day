@@ -2,6 +2,7 @@ shader_type sky;
 render_mode use_quarter_res_pass, use_half_res_pass;
 #define HIGH_QUALITY_SUN_DISK
 #define TONEMAP_ACES
+#define LEGACY_CLOUDS
 #include "atmosphere/tod_standard_atmosphere.gdshaderinc"
 #include "celestials/tod_sun.gdshaderinc"
 #include "celestials/tod_moon.gdshaderinc"

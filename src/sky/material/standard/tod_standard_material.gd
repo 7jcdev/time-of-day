@@ -15,7 +15,7 @@ const _DEFAULT_STARS_FIELD_TEXTURE:= preload(
 	"res://addons/time-of-day/content/textures/third-party/textures/milky-way/StarField.jpg"
 )
 const _DEFAULT_CLOUDS_NOISE:= preload(
-	"res://addons/time-of-day/content/textures/third-party/noise.png"
+	"res://addons/time-of-day/content/resources/default_noise_clouds.tres"
 )
 
 @export_group("General Settings")
@@ -281,112 +281,112 @@ var stars_scintillation_speed: float = 1.0:
 		emit_changed()
 
 
-#@export_group('Clouds')
-#@export_subgroup('Noise')
-#
-#@export
-#var use_custom_clouds_noise_tex: bool = false:
-	#get: return use_custom_clouds_noise_tex
-	#set(value):
-		#use_custom_clouds_noise_tex = value
-		#if value:
-			#clouds_noise_tex = clouds_noise_tex
-		#else:
-			#clouds_noise_tex = _DEFAULT_CLOUDS_NOISE
+@export_group('Clouds')
+@export_subgroup('Noise')
 
-#@export
-#var clouds_noise_tex: Texture = null:
-	#get: return clouds_noise_tex
-	#set(value):
-		#clouds_noise_tex = value
-		#_material.set_shader_parameter(
-			#&"tod_clouds_noise_tex", clouds_noise_tex
-		#)
-		#emit_changed()
+@export
+var use_custom_clouds_noise_tex: bool = false:
+	get: return use_custom_clouds_noise_tex
+	set(value):
+		use_custom_clouds_noise_tex = value
+		if value:
+			clouds_noise_tex = clouds_noise_tex
+		else:
+			clouds_noise_tex = _DEFAULT_CLOUDS_NOISE
 
-#@export
-#var clouds_noise_freq: float = 2.6:
-	#get: return clouds_noise_freq
-	#set(value):
-		#clouds_noise_freq = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_noise_freq", clouds_noise_freq
-		#)
-		#emit_changed()
+@export
+var clouds_noise_tex: Texture = null:
+	get: return clouds_noise_tex
+	set(value):
+		clouds_noise_tex = value
+		_material.set_shader_parameter(
+			&"tod_clouds_noise_tex", clouds_noise_tex
+		)
+		emit_changed()
 
-#@export_subgroup('Coords')
-#@export
-#var clouds_size: float = 1.0:
-	#get: return clouds_size
-	#set(value):
-		#clouds_size = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_size", clouds_size
-		#)
-		#emit_changed()
+@export
+var clouds_noise_freq: float = 2.6:
+	get: return clouds_noise_freq
+	set(value):
+		clouds_noise_freq = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_noise_freq", clouds_noise_freq
+		)
+		emit_changed()
 
-#@export_range(-499.0, 499.0) 
-#var clouds_shell_offset: float = -470.0:
-	#get: return clouds_shell_offset
-	#set(value):
-		#clouds_shell_offset = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_shell_offset", clouds_shell_offset
-		#)
-		#emit_changed()
-#
-#@export_subgroup('Density')
+@export_subgroup('Coords')
+@export
+var clouds_size: float = 3.0:
+	get: return clouds_size
+	set(value):
+		clouds_size = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_size", clouds_size
+		)
+		emit_changed()
 
-#@export
-#var clouds_smooth: float = 0.085:
-	#get: return clouds_smooth
-	#set(value):
-		#clouds_smooth = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_smooth", clouds_smooth
-		#)
-		#emit_changed()
+@export_range(-499.0, 499.0) 
+var clouds_shell_offset: float = -490.0:
+	get: return clouds_shell_offset
+	set(value):
+		clouds_shell_offset = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_shell_offset", clouds_shell_offset
+		)
+		emit_changed()
 
-#@export_range(0.0, 1.0)
-#var clouds_coverage: float = 0.55:
-	#get: return clouds_coverage
-	#set(value):
-		#clouds_coverage = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_coverage", clouds_coverage
-		#)
-		#emit_changed()
+@export_subgroup('Density')
 
-#@export_range(0.0, 10.0)#4
-#var clouds_absorption: float = 1.9:
-	#get: return clouds_absorption
-	#set(value):
-		#clouds_absorption = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_absorption", clouds_absorption
-		#)
-		#emit_changed()
+@export
+var clouds_smooth: float = 0.085:
+	get: return clouds_smooth
+	set(value):
+		clouds_smooth = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_smooth", clouds_smooth
+		)
+		emit_changed()
 
-#@export_range(0.0, 20.0)#2
-#var clouds_thickness: float = 4.0:
-	#get: return clouds_thickness
-	#set(value):
-		#clouds_thickness = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_thickness", clouds_thickness
-		#)
-		#emit_changed()
+@export_range(0.0, 1.0)
+var clouds_coverage: float = 0.55:
+	get: return clouds_coverage
+	set(value):
+		clouds_coverage = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_coverage", clouds_coverage
+		)
+		emit_changed()
 
-#@export_subgroup('Color')
-#@export
-#var clouds_intensity: float = 5.0:
-	#get: return clouds_intensity
-	#set(value):
-		#clouds_intensity = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_intensity", clouds_intensity
-		#)
-		#emit_changed()
+@export_range(0.0, 10.0)#4
+var clouds_absorption: float = 1.9:
+	get: return clouds_absorption
+	set(value):
+		clouds_absorption = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_absorption", clouds_absorption
+		)
+		emit_changed()
+
+@export_range(0.0, 20.0)#2
+var clouds_thickness: float = 2.2:
+	get: return clouds_thickness
+	set(value):
+		clouds_thickness = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_thickness", clouds_thickness
+		)
+		emit_changed()
+
+@export_subgroup('Color')
+@export
+var clouds_intensity: float = 5.0:
+	get: return clouds_intensity
+	set(value):
+		clouds_intensity = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_intensity", clouds_intensity
+		)
+		emit_changed()
 
 #@export_range(0.0, 1.0)
 #var clouds_atmosphere_inject: float = 0.3:
@@ -398,50 +398,50 @@ var stars_scintillation_speed: float = 1.0:
 		#)
 		#emit_changed()
 
-#@export
-#var clouds_zenith_color:= Color(0.835, 0.906, 1.0):
-	#get: return clouds_zenith_color
-	#set(value):
-		#clouds_zenith_color = value
-		#_set_clouds_day_color()
-		#emit_changed()
+@export
+var clouds_zenith_color:= Color(0.835, 0.906, 1.0):
+	get: return clouds_zenith_color
+	set(value):
+		clouds_zenith_color = value
+		_set_clouds_day_color()
+		emit_changed()
 
-#@export
-#var clouds_horizon_color:= Color(1.0, 0.482, 0.0):
-	#get: return clouds_horizon_color
-	#set(value):
-		#clouds_horizon_color = value
-		#_set_clouds_day_color()
-		#emit_changed()
+@export
+var clouds_horizon_color:= Color(1.0, 0.482, 0.0):
+	get: return clouds_horizon_color
+	set(value):
+		clouds_horizon_color = value
+		_set_clouds_day_color()
+		emit_changed()
 
-#@export
-#var clouds_night_color:= Color(0.1803, 0.3019, 0.5058):
-	#get: return clouds_night_color
-	#set(value):
-		#clouds_night_color = value
-		#_set_clouds_night_color()
-		#emit_changed()
+@export
+var clouds_night_color:= Color(0.1803, 0.3019, 0.5058):
+	get: return clouds_night_color
+	set(value):
+		clouds_night_color = value
+		_set_clouds_night_color()
+		emit_changed()
 
-#@export_subgroup('Offset')
-#@export
-#var clouds_offset:= Vector3(0.05, -0.05, 0.01):
-	#get: return clouds_offset
-	#set(value):
-		#clouds_offset = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_offset", clouds_offset
-		#)
-		#emit_changed()
+@export_subgroup('Offset')
+@export
+var clouds_offset:= Vector3(0.05, -0.05, 0.01):
+	get: return clouds_offset
+	set(value):
+		clouds_offset = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_offset", clouds_offset
+		)
+		emit_changed()
 
-#@export
-#var clouds_offset_speed: float = 0.1:
-	#get: return clouds_offset_speed
-	#set(value):
-		#clouds_offset_speed = value
-		#RenderingServer.material_set_param(
-			#_material.get_rid(), &"tod_clouds_offset_speed", clouds_offset_speed
-		#)
-		#emit_changed()
+@export
+var clouds_offset_speed: float = 0.1:
+	get: return clouds_offset_speed
+	set(value):
+		clouds_offset_speed = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_offset_speed", clouds_offset_speed
+		)
+		emit_changed()
 
 func _on_init() -> void:
 	_material.shader = _SHADER
@@ -481,24 +481,24 @@ func _on_init() -> void:
 	stars_scintillation = stars_scintillation
 	stars_scintillation_speed = stars_scintillation_speed
 	
-	#use_custom_clouds_noise_tex = use_custom_clouds_noise_tex
-	#clouds_noise_tex = clouds_noise_tex
-	#clouds_smooth = clouds_smooth
-	#clouds_noise_freq = clouds_noise_freq
-	#clouds_size = clouds_size
-	#clouds_shell_offset = clouds_shell_offset
-	#clouds_coverage = clouds_coverage
-	#
-	#clouds_intensity = clouds_intensity
-	#clouds_absorption = clouds_absorption
-	##clouds_atmosphere_inject = clouds_atmosphere_inject
-	#clouds_thickness = clouds_thickness
-	#clouds_zenith_color = clouds_zenith_color
-	#clouds_horizon_color = clouds_horizon_color
-	#clouds_night_color = clouds_night_color
-	#
-	#clouds_offset = clouds_offset
-	#clouds_offset_speed = clouds_offset_speed
+	use_custom_clouds_noise_tex = use_custom_clouds_noise_tex
+	clouds_noise_tex = clouds_noise_tex
+	clouds_smooth = clouds_smooth
+	clouds_noise_freq = clouds_noise_freq
+	clouds_size = clouds_size
+	clouds_shell_offset = clouds_shell_offset
+	clouds_coverage = clouds_coverage
+	
+	clouds_intensity = clouds_intensity
+	clouds_absorption = clouds_absorption
+	#clouds_atmosphere_inject = clouds_atmosphere_inject
+	clouds_thickness = clouds_thickness
+	clouds_zenith_color = clouds_zenith_color
+	clouds_horizon_color = clouds_horizon_color
+	clouds_night_color = clouds_night_color
+	
+	clouds_offset = clouds_offset
+	clouds_offset_speed = clouds_offset_speed
 
 func material_is_valid() -> bool:
 	return true;
@@ -544,15 +544,15 @@ func _on_sun_direction_changed() -> void:
 	_set_atm_day_tint()
 	_set_atm_night_tint()
 	
-	#_set_clouds_day_color()
-	#_set_clouds_night_color()
+	_set_clouds_day_color()
+	_set_clouds_night_color()
 
 func _on_moon_direction_changed() -> void:
 	_set_sun_uMuS()
 	_set_atm_night_tint()
 	
-	#_set_clouds_day_color()
-	#_set_clouds_night_color()
+	_set_clouds_day_color()
+	_set_clouds_night_color()
 
 func _connect_changed_atm_day_gradient() -> void:
 	if !atm_day_gradient.changed.is_connected(_on_changed_day_gradient):
@@ -565,17 +565,17 @@ func _disconnect_changed_atm_day_gradient() -> void:
 func _on_changed_day_gradient() -> void:
 	_set_atm_day_tint()
 
-#func _set_clouds_day_color() -> void:
-	#RenderingServer.material_set_param(
-		#_material.get_rid(), &"tod_clouds_zenith_color", clouds_zenith_color
-	#)
-	#
-	#RenderingServer.material_set_param(
-		#_material.get_rid(), &"tod_clouds_horizon_color", clouds_horizon_color
-	#)
-#
-#func _set_clouds_night_color() -> void:
-	#var color:= clouds_night_color * get_atm_night_intensity
-	#RenderingServer.material_set_param(
-		#_material.get_rid(), &"tod_clouds_night_color", color
-	#)
+func _set_clouds_day_color() -> void:
+	RenderingServer.material_set_param(
+		_material.get_rid(), &"tod_clouds_zenith_color", clouds_zenith_color
+	)
+	
+	RenderingServer.material_set_param(
+		_material.get_rid(), &"tod_clouds_horizon_color", clouds_horizon_color
+	)
+
+func _set_clouds_night_color() -> void:
+	var color:= clouds_night_color * get_atm_night_intensity
+	RenderingServer.material_set_param(
+		_material.get_rid(), &"tod_clouds_night_color", color
+	)
