@@ -3,9 +3,7 @@
 #include "res://addons/time-of-day/src/sky/shaders/common/tod_color_include.gdshaderinc"
 #include "res://addons/time-of-day/src/sky/shaders/common/tod_sky_variables.gdshaderinc"
 
-#ifndef LEGACY_CLOUDS
-#define LEGACY_CLOUDS
-#endif
+//#define LEGACY_CLOUDS
 
 // Dynamic clouds based on:
 // https://github.com/danilw/godot-utils-and-other/blob/master/Dynamic%20sky%20and%20reflection/shaders/Sky.shader
@@ -133,6 +131,7 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 		
 		tint = mix(tint, tod_clouds_night_color.rgb, saturate(-tod_sun_direction.y+0.75));
 		ret.rgb *= tint.rgb * tod_clouds_intensity;
+		ret.rgb += scatter * 0.3;
 		ret.a = alpha * alpha;
 		return ret;
 	}

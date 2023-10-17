@@ -34,16 +34,19 @@ void sky(){
 	
 	finalColor += (deepSpace + nearSpace) * horizonBlend;
 	finalColor += scatter;
+	vec4 clouds = vec4(0.0);
 	
-	vec4 clouds = (renderDynamicClouds(vec3(0.0, tod_horizon_level * 500.0, 0.0), worldPos, TIME, scatter));
-	clouds.rgb += scatter * 0.5;
+#ifdef LEGACY_CLOUDS
+	clouds = (renderDynamicClouds(vec3(0.0, tod_horizon_level * 500.0, 0.0), worldPos, TIME, scatter));
+#endif
+
 	if(AT_QUARTER_RES_PASS && AT_CUBEMAP_PASS){
 		COLOR = mix(finalColor, clouds.rgb, clouds.a * horizonBlend);
 		ALPHA = 1.0;
 	}
 	else if (AT_HALF_RES_PASS && !AT_CUBEMAP_PASS){
 		COLOR = (clouds.rgb);
-		ALPHA = clouds.a * saturate((EYEDIR.y-0.05)*15.0);
+		ALPHA = clouds.a * saturate((EYEDIR.y-0.075)*20.0);
 	}
 	else if(AT_CUBEMAP_PASS){
 		COLOR = QUARTER_RES_COLOR.rgb;
