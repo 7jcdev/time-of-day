@@ -36,14 +36,14 @@ void sky(){
 	finalColor += scatter;
 	
 	vec4 clouds = (renderDynamicClouds(vec3(0.0, tod_horizon_level * 500.0, 0.0), worldPos, TIME, scatter));
-	//finalColor = mix(finalColor, clouds.rgb, clouds.a * horizonBlend);
+	clouds.rgb += scatter * 0.5;
 	if(AT_QUARTER_RES_PASS && AT_CUBEMAP_PASS){
 		COLOR = mix(finalColor, clouds.rgb, clouds.a * horizonBlend);
 		ALPHA = 1.0;
 	}
 	else if (AT_HALF_RES_PASS && !AT_CUBEMAP_PASS){
-		COLOR = clouds.rgb;
-		ALPHA = clouds.a * horizonBlend.r;
+		COLOR = (clouds.rgb);
+		ALPHA = clouds.a * saturate((EYEDIR.y-0.05)*15.0);
 	}
 	else if(AT_CUBEMAP_PASS){
 		COLOR = QUARTER_RES_COLOR.rgb;
