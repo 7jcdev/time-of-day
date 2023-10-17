@@ -17,6 +17,9 @@ const _DEFAULT_STARS_FIELD_TEXTURE:= preload(
 const _DEFAULT_CLOUDS_NOISE:= preload(
 	"res://addons/time-of-day/content/resources/default_noise_clouds.tres"
 )
+const _DEFAULT_CLOUDS_GRADIENT:= preload(
+	"res://addons/time-of-day/content/resources/default_clouds_gradient.tres"
+)
 
 @export_group("General Settings")
 @export
@@ -313,6 +316,15 @@ var clouds_noise_freq: float = 2.6:
 			_material.get_rid(), &"tod_clouds_noise_freq", clouds_noise_freq
 		)
 		emit_changed()
+@export
+var clouds_samples: int = 24:
+	get: return clouds_samples
+	set(value):
+		clouds_samples = value
+		RenderingServer.material_set_param(
+			_material.get_rid(), &"tod_clouds_samples", clouds_samples
+		)
+		emit_changed()
 
 @export_subgroup('Coords')
 @export
@@ -358,7 +370,7 @@ var clouds_coverage: float = 0.55:
 		emit_changed()
 
 @export_range(0.0, 10.0)#4
-var clouds_absorption: float = 1.9:
+var clouds_absorption: float = 5.0:
 	get: return clouds_absorption
 	set(value):
 		clouds_absorption = value
@@ -399,26 +411,21 @@ var clouds_intensity: float = 5.0:
 		#emit_changed()
 
 @export
-var clouds_zenith_color:= Color(0.835, 0.906, 1.0):
-	get: return clouds_zenith_color
-	set(value):
-		clouds_zenith_color = value
-		_set_clouds_day_color()
-		emit_changed()
-
-@export
-var clouds_horizon_color:= Color(1.0, 0.482, 0.0):
-	get: return clouds_horizon_color
-	set(value):
-		clouds_horizon_color = value
-		_set_clouds_day_color()
-		emit_changed()
-
-@export
 var clouds_night_color:= Color(0.1803, 0.3019, 0.5058):
 	get: return clouds_night_color
 	set(value):
 		clouds_night_color = value
+		_set_clouds_night_color()
+		emit_changed()
+
+@export 
+var clouds_gradient: Gradient:
+	get: return clouds_gradient
+	set(value):
+		clouds_gradient = value
+		if value != null:
+			_disconnect_changed_clouds_gradient()
+			_connect_changed_clouds_gradient()
 		_set_clouds_night_color()
 		emit_changed()
 
@@ -493,12 +500,13 @@ func _on_init() -> void:
 	clouds_absorption = clouds_absorption
 	#clouds_atmosphere_inject = clouds_atmosphere_inject
 	clouds_thickness = clouds_thickness
-	clouds_zenith_color = clouds_zenith_color
-	clouds_horizon_color = clouds_horizon_color
+	clouds_gradient = _DEFAULT_CLOUDS_GRADIENT
+	clouds_gradient = clouds_gradient
 	clouds_night_color = clouds_night_color
 	
 	clouds_offset = clouds_offset
 	clouds_offset_speed = clouds_offset_speed
+	clouds_samples = clouds_samples
 
 func material_is_valid() -> bool:
 	return true;
@@ -565,13 +573,24 @@ func _disconnect_changed_atm_day_gradient() -> void:
 func _on_changed_day_gradient() -> void:
 	_set_atm_day_tint()
 
+func _connect_changed_clouds_gradient() -> void:
+	if !clouds_gradient.changed.is_connected(_on_changed_clouds_gradient):
+		clouds_gradient.changed.connect(_on_changed_clouds_gradient)
+
+func _disconnect_changed_clouds_gradient() -> void:
+	if clouds_gradient.changed.is_connected(_on_changed_clouds_gradient):
+		clouds_gradient.changed.disconnect(_on_changed_clouds_gradient)
+
+func _on_changed_clouds_gradient() -> void:
+	_set_clouds_day_color()
+
 func _set_clouds_day_color() -> void:
 	RenderingServer.material_set_param(
-		_material.get_rid(), &"tod_clouds_zenith_color", clouds_zenith_color
-	)
-	
-	RenderingServer.material_set_param(
-		_material.get_rid(), &"tod_clouds_horizon_color", clouds_horizon_color
+		_material.get_rid(), 
+		&"tod_clouds_color", clouds_gradient.sample(
+			TOD_Util.interpolate_by_above(sun_direction.y) 
+		)
+		if clouds_gradient != null else Color.WHITE
 	)
 
 func _set_clouds_night_color() -> void:

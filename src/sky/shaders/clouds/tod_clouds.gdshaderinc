@@ -22,13 +22,11 @@ uniform float tod_clouds_absorption: hint_range(0.0, 5.0) = 1.0;
 uniform float tod_clouds_thickness: hint_range(0.0, 2.0) = 0.7;
 
 uniform float tod_clouds_intensity = 1.0;
-uniform vec4 tod_clouds_zenith_color: source_color;
-uniform vec4 tod_clouds_horizon_color: source_color;
+uniform vec4 tod_clouds_color: source_color;
 uniform vec4 tod_clouds_night_color: source_color;
-//uniform float tod_clouds_atmosphere_inject;
-
 uniform vec3 tod_clouds_offset;
 uniform float tod_clouds_offset_speed;
+uniform int tod_clouds_samples;
 
 bool cloudsIntersectSphere(vec3 origin, vec3 dir, float radius, out vec3 normal){
 	float a = dot(dir, dir);
@@ -98,28 +96,28 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 	);
 	
 	vec3 normal = vec3(0.0); float alpha = 0.0;
-	const int cloudsSteps = 16;
-	const int shadowSteps = 4;
-	const float cloudsStepsRCP = 1.0/float(cloudsSteps);
-	const float shadowStepsRCP = 1.0/float(shadowSteps);
+	//const int cloudsSteps = 24;
+	float cloudsStepsRCP = 1.0/float(tod_clouds_samples);
+	//const int shadowSteps = 4;
+	//const float shadowStepsRCP = 1.0/float(shadowSteps);
 	if(cloudsIntersectSphere(origin, dir, 500.0, normal)){
 		float marchStep = tod_clouds_thickness * cloudsStepsRCP;
 		vec3 dirStep = dir / dir.y * marchStep;
 		vec3 position = normal;
 		vec3 offsets = tod_clouds_offset * tod_clouds_offset_speed * _time;
 		float t = 1.0;
-		for (int i = 0; i < cloudsSteps; i++) {
+		for (int i = 0; i < tod_clouds_samples; i++) {
 			float h = float(i) * cloudsStepsRCP;
 			float density = dynamicCloudsDensity(position, offsets);
 			float ti = exp(-tod_clouds_absorption * density * marchStep);
 			
-			float shadow = 0.0;
+			/*float shadow = 0.0;
 			for (int s = 0; s < shadowSteps; s++){
 				vec3 p = normal + (float(s) * 0.3333333) * lightPos;
 				shadow += dynamicCloudsDensity(p, offsets);
-			}
-			float tic = exp2(shadow * -tod_clouds_absorption * marchStep * shadowStepsRCP);
-			t*= (ti + tic) * 0.5;
+			}*/
+			//float tic = exp2(shadow * -tod_clouds_absorption * marchStep * shadowStepsRCP);
+			//t*= (ti + tic) * 0.5;
 			t*=ti;
 			//if (t < 0.001) break;
 			ret.rgb += t * (exp(h) * 0.571428571) * density * marchStep;
@@ -128,8 +126,10 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 			//if (length(position) > 1e3) break;
 		}
 		
-		vec3 tint = mix(tod_clouds_zenith_color.rgb, tod_clouds_horizon_color.rgb,
-			saturate((1.0 - tod_sun_direction.y-0.15)));
+		vec3 tint = tod_clouds_color.rgb;
+		
+		//mix(tod_clouds_zenith_color.rgb, tod_clouds_horizon_color.rgb,
+			//saturate((1.0 - tod_sun_direction.y-0.15)));
 		
 		tint = mix(tint, tod_clouds_night_color.rgb, saturate(-tod_sun_direction.y+0.75));
 		ret.rgb *= tint.rgb * tod_clouds_intensity;
