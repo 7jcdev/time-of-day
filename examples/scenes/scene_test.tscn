@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://addons/time-of-day/src/sky/celestials/tod_sun.gd" id="9_r27e8"]
 [ext_resource type="Script" path="res://addons/time-of-day/src/sky/celestials/tod_moon.gd" id="10_e7lwf"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t5g0v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54jnk"]
 shader = ExtResource("1_t6756")
 shader_parameter/tod_sun_direction = null
 shader_parameter/tod_sun_disk_color = null
@@ -70,7 +70,7 @@ shader_parameter/tod_stars_field_texture = ExtResource("5_gyk4y")
 shader_parameter/tod_clouds_noise_tex = ExtResource("3_2gegb")
 
 [sub_resource type="Sky" id="Sky_6cw6f"]
-sky_material = SubResource("ShaderMaterial_t5g0v")
+sky_material = SubResource("ShaderMaterial_54jnk")
 process_mode = 3
 
 [sub_resource type="Environment" id="Environment_o8uwd"]
@@ -78,6 +78,9 @@ background_mode = 2
 sky = SubResource("Sky_6cw6f")
 tonemap_mode = 3
 tonemap_white = 6.0
+volumetric_fog_density = 0.0
+volumetric_fog_ambient_inject = 1.27
+volumetric_fog_sky_affect = 0.813
 
 [sub_resource type="Gradient" id="Gradient_j6bko"]
 offsets = PackedFloat32Array(0.6875, 0.834821)
@@ -110,14 +113,14 @@ stars_field_texture = ExtResource("5_gyk4y")
 stars_scintillation = 0.75
 stars_scintillation_speed = 1.0
 use_custom_clouds_noise_tex = false
-clouds_noise_freq = 2.6
+clouds_noise_freq = 2.0
 clouds_samples = 16
 clouds_size = 4.0
 clouds_shell_offset = -495.0
-clouds_smooth = 0.08235
+clouds_smooth = 0.0687
 clouds_coverage = 0.52885
 clouds_absorption = 10.0
-clouds_thickness = 1.54426
+clouds_thickness = 1.70955
 clouds_intensity = 10.0
 clouds_night_color = Color(0.1803, 0.3019, 0.5058, 1)
 clouds_gradient = ExtResource("8_mlxua")
@@ -154,7 +157,7 @@ environment = SubResource("Environment_o8uwd")
 [node name="TOD_Manager" type="Node" parent="."]
 script = ExtResource("6_w105k")
 sky_path = NodePath("../TOD_Sky")
-timeline = 12.9154
+timeline = 9.85944
 
 [node name="TOD_Sky" type="Node" parent="."]
 script = ExtResource("7_dblke")
@@ -162,7 +165,7 @@ material = SubResource("Resource_hjtqi")
 enviro_container = NodePath("../WorldEnvironment")
 
 [node name="TOD_Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0, -0.985215, -0.171324, -0.249788, -0.165893, 0.953984, -0.968301, 0.0427946, -0.246095, -0.171324, 0.953984, -0.246095)
+transform = Transform3D(0, -0.825152, 0.564911, -0.299093, 0.539051, 0.78738, -0.954224, -0.168961, -0.246797, 0.564911, 0.78738, -0.246797)
 light_color = Color(1, 0.84551, 0.776214, 1)
 shadow_enabled = true
 script = ExtResource("9_r27e8")
@@ -171,11 +174,11 @@ mie_color = Color(1, 0.654902, 0.458824, 1)
 mie_anisotropy = 0.81184
 lighting_color_gradient = SubResource("Gradient_qmum6")
 lighting_energy_curve = SubResource("Curve_sy4qq")
-altitude = 17.449
-azimuth = 214.844
+altitude = 38.0587
+azimuth = 113.599
 
 [node name="TOD_Moon" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0, -0.983774, 0.179412, 0.345827, -0.168342, -0.923074, 0.938298, 0.0620455, 0.340215, 0.179412, -0.923074, 0.340215)
+transform = Transform3D(0, -0.858918, -0.512113, 0.406554, 0.467881, -0.78473, 0.913627, -0.208202, 0.349196, -0.512113, -0.78473, 0.349196)
 light_color = Color(0.54, 0.7, 0.9, 1)
 light_energy = 0.0
 script = ExtResource("10_e7lwf")
@@ -186,8 +189,8 @@ mie_color = Color(0.165, 0.533, 1, 1)
 mie_intensity = 0.5
 lighting_color = Color(0.54, 0.7, 0.9, 1)
 lighting_energy = 0.3
-altitude = 157.38
-azimuth = 27.8048
+altitude = 141.696
+azimuth = 304.289
 
 [node name="Spheres" type="Node3D" parent="."]
 

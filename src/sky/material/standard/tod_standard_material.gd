@@ -301,7 +301,7 @@ var clouds_noise_tex: Texture = null:
 		)
 		emit_changed()
 
-var clouds_noise_freq: float = 2.6:
+var clouds_noise_freq: float = 2.1:
 	get: return clouds_noise_freq
 	set(value):
 		clouds_noise_freq = value
@@ -310,7 +310,7 @@ var clouds_noise_freq: float = 2.6:
 		)
 		emit_changed()
 
-var clouds_samples: int = 24:
+var clouds_samples: int = 16:
 	get: return clouds_samples
 	set(value):
 		clouds_samples = value
@@ -605,7 +605,7 @@ func _get_property_list() -> Array:
 		hint=PROPERTY_HINT_RANGE, hint_string="0.0, 1.0"})
 	
 	ret.push_back({name="clouds_absorption", type=TYPE_FLOAT, 
-		hint=PROPERTY_HINT_RANGE, hint_string="0.0, 10.0"})
+		hint=PROPERTY_HINT_RANGE, hint_string="0.0, 50.0"})
 		
 	ret.push_back({name="clouds_thickness", type=TYPE_FLOAT, 
 		hint=PROPERTY_HINT_RANGE, hint_string="0.0, 20.0"})
