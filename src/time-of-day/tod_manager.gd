@@ -51,7 +51,7 @@ var timeline: float = 7.0:
 		if editor_hint:
 			_set_celestials_coords()
 
-@export_range(0, 31)
+@export_range(1, 31)
 var day: int  = 12:
 	get: return day
 	set(value):
@@ -60,7 +60,7 @@ var day: int  = 12:
 		if editor_hint:
 			_set_celestials_coords()
 
-@export_range(0, 31)
+@export_range(1, 31)
 var month: int = 2:
 	get: return month
 	set(value):
@@ -344,6 +344,11 @@ func _compute_simple_moon_coords() -> void:
 	_moon_coords.y = (180.0 - _sun_coords.y) + moon_coords_offset.y
 	_moon_coords.x = (180.0 + _sun_coords.x) + moon_coords_offset.x
 
+# Realistic celestials calculations:
+# http://www.stjarnhimlen.se/comp/ppcomp.html
+# http://stjarnhimlen.se/comp/tutorial.html
+# Test: 4-apr-1990 0:00 +60 lat +15 long
+
 # Realistic Calculations.
 func _compute_realistic_sun_coords() -> void:
 	## Orbital Elements.
@@ -427,7 +432,7 @@ func _compute_realistic_sun_coords() -> void:
 	
 	## Azimuth and altitude.
 	_sun_coords.x = atan2(yhor, xhor) + PI
-	_sun_coords.y = (PI * 0.5) - asin(zhor) # atan2(zhor, sqrt(xhor * xhor + yhor * yhor))
+	_sun_coords.y = (PI * 0.5) - asin(zhor) #atan2(zhor, sqrt(xhor * xhor + yhor * yhor))
 
 func _compute_realistic_moon_coords() -> void:
 	## Orbital Elements.
@@ -538,7 +543,7 @@ func _compute_realistic_moon_coords() -> void:
 	
 	## Azimuth and altitude
 	_moon_coords.x = atan2(yhor, xhor) + PI
-	_moon_coords.y = (PI *0.5) - atan2(zhor, sqrt(xhor * xhor + yhor * yhor)) # Mathf.Asin(zhor)
+	_moon_coords.y = (PI * 0.5) - atan2(zhor, sqrt(xhor * xhor + yhor * yhor)) # Mathf.Asin(zhor)
 
 func _set_celestials_coords() -> void:
 	match celestials_calculations:
