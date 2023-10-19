@@ -34,6 +34,9 @@ var enviro_container: NodePath:
 			var container = get_node_or_null(value)
 			if is_instance_of(container, Camera3D) || \
 				is_instance_of(container, WorldEnvironment):
+					if container.environment == null:
+						push_warning("enviroment resource not found")
+						return
 					_enviro = container.environment
 			
 			_connect_enviro_changed()
