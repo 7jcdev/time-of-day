@@ -3,7 +3,9 @@
 #include "res://addons/time-of-day/src/sky/shaders/common/tod_color_include.gdshaderinc"
 #include "res://addons/time-of-day/src/sky/shaders/common/tod_sky_variables.gdshaderinc"
 
-//#define LEGACY_CLOUDS
+#ifndef LEGACY_CLOUDS
+#define LEGACY_CLOUDS
+#endif
 
 // Dynamic clouds based on:
 // https://github.com/danilw/godot-utils-and-other/blob/master/Dynamic%20sky%20and%20reflection/shaders/Sky.shader
@@ -103,10 +105,11 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 		vec3 dirStep = dir / dir.y * marchStep;
 		vec3 position = normal;
 		vec3 offsets = tod_clouds_offset * tod_clouds_offset_speed * _time;
-		float t = 1.0;
+		vec3 t = vec3(1.0);
+		float density = 0.0;
 		for (int i = 0; i < tod_clouds_samples; i++) {
 			float h = float(i) * cloudsStepsRCP;
-			float density = dynamicCloudsDensity(position, offsets);
+			density += dynamicCloudsDensity(position, offsets);
 			float ti = exp(-tod_clouds_absorption * density * marchStep);
 			
 			/*float shadow = 0.0;
@@ -116,8 +119,10 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 			}*/
 			//float tic = exp2(shadow * -tod_clouds_absorption * marchStep * shadowStepsRCP);
 			//t*= (ti + tic) * 0.5;
+			
 			t*=ti;
 			//if (t < 0.001) break;
+			
 			ret.rgb += t * (exp(h) * 0.571428571) * density * marchStep;
 			alpha += (1.0 - ti) * (1.0 - alpha);
 			position += dirStep;
@@ -125,10 +130,6 @@ vec4 renderDynamicClouds(vec3 origin, vec3 dir, float _time, in vec3 scatter){
 		}
 		
 		vec3 tint = tod_clouds_color.rgb;
-		
-		//mix(tod_clouds_zenith_color.rgb, tod_clouds_horizon_color.rgb,
-			//saturate((1.0 - tod_sun_direction.y-0.15)));
-		
 		tint = mix(tint, tod_clouds_night_color.rgb, saturate(-tod_sun_direction.y+0.75));
 		ret.rgb *= tint.rgb * tod_clouds_intensity;
 		ret.rgb += scatter * 0.3;

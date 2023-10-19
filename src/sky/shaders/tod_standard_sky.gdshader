@@ -8,6 +8,7 @@ render_mode use_quarter_res_pass, use_half_res_pass;
 #include "celestials/tod_moon.gdshaderinc"
 #include "celestials/tod_deep_space.gdshaderinc"
 #include "clouds/tod_clouds.gdshaderinc"
+//#include "clouds/tod_volumetric_clouds.gdshaderinc"
 
 void sky(){
 	vec3 worldPos = EYEDIR;
@@ -46,7 +47,8 @@ void sky(){
 	}
 	else if (AT_HALF_RES_PASS && !AT_CUBEMAP_PASS){
 		COLOR = (clouds.rgb);
-		ALPHA = clouds.a * saturate((EYEDIR.y-0.075)*20.0);
+		//ALPHA = clouds.a * saturate((EYEDIR.y-0.075)*20.0);
+		ALPHA = clouds.a * saturate((EYEDIR.y-0.02)*10.0);
 	}
 	else if(AT_CUBEMAP_PASS){
 		COLOR = QUARTER_RES_COLOR.rgb;
