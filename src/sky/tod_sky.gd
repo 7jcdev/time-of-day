@@ -23,19 +23,18 @@ var enviro_container: NodePath:
 	get: return enviro_container
 	set(value):
 		enviro_container = value
-		
 		if enviro_container.is_empty():
 			_disconnect_enviro_changed()
 			if _enviro != null && _enviro.sky != null:
 				_enviro.sky.sky_material = null
 			_enviro = null
-			print("no enviro")
 		else:
 			var container = get_node_or_null(value)
 			if is_instance_of(container, Camera3D) || \
 				is_instance_of(container, WorldEnvironment):
 					if container.environment == null:
 						push_warning("enviroment resource not found")
+						enviro_container = NodePath()
 						return
 					_enviro = container.environment
 			
