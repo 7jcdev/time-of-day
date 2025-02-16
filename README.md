@@ -1,5 +1,5 @@
-# Time Of Day Plugin
-ToD plugin for godot 4.
+# Universal Sky Plugin
+Dinamic skydome and tod plugin for godot 4.4
 ---------------------------------------------
 
 ![Captura desde 2023-10-15 13-01-55](https://github.com/broken-kernel/time-of-day/assets/73777890/bf057522-006d-4d6a-83ab-485abcaef967)
@@ -9,24 +9,8 @@ ToD plugin for godot 4.
 
 
 ## Status:
-> 1.7.x Dev
+> 2.0.x Dev
 ---------------------------------------------
 
-## Features:
 
-- Dynamic Atmosphere.
-- Moon and Moon Phases.
-- Night Scattering.
-- DeepSpace.
-- Dynamic Clouds.
-- DateTime.
-- Sync System DateTime.
-- Simple Sun and Moon Positions.
-- Realistic Sun and Moon Positions.
-- Easy Setup.
----------------------------------------------
 
-## Install:
-- Add time-of-day folder in addons folder.
-- Reset Godot editor.
-- Active plugin(Project/Project Settings/Plugin).
