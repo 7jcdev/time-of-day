@@ -1,6 +1,6 @@
 # Universal Sky
 # Description:
-# - Dinamic skydome.
+# - Dynamic skydome.
 # License:
 # - J. Cuéllar 2025 MIT License
 # - See: LICENSE File.

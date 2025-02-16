@@ -1,5 +1,5 @@
 # Universal Sky Plugin
-Dinamic skydome and tod plugin for godot 4.4
+Dynamic skydome and tod plugin for godot 4.4
 ---------------------------------------------
 
 ![Captura desde 2023-10-15 13-01-55](https://github.com/broken-kernel/time-of-day/assets/73777890/bf057522-006d-4d6a-83ab-485abcaef967)
