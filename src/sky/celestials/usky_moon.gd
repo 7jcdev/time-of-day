@@ -62,7 +62,7 @@ var _sun: USkySun = null:
 
 var phases_mul: float:
 	get: 
-		if _sun != null:
+		if is_instance_valid(_sun):
 			return clamp(-_sun.direction.dot(direction) + 0.50, 0.0, 1.0)
 		return 1.0
 
@@ -104,7 +104,7 @@ func _get_light_energy() -> float:
 	if enable_moon_phases:
 		energy *= phases_mul
 	
-	if _sun != null:
+	if is_instance_valid(_sun):
 		var fade: float = (1.0 - _sun.direction.y) - 0.5
 		return energy * _SUN_MOON_CURVE_FADE.sample_baked(fade)
 	
