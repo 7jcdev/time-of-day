@@ -41,11 +41,11 @@ var material: USkyMaterialBase = null:
 		material = value
 		if is_instance_valid(material):
 			if !material.material_is_valid():
-				material = null
 				push_warning(
-					"{material} is abstract class, please add valid material"
-					.format({"material": material})
+					"this {material} is abstract resource class, please add valid material"
+					.format({"material": material.get_class()})
 				)
+				material = null
 			else:
 				_set_sky_material_to_dome(material.material)
 #endregion
