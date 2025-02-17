@@ -1,14 +1,14 @@
 # Universal Sky
 # Description:
-# - Standard sky material.
+# - Standard sky material base.
 # License:
 # - J. Cuéllar 2025 MIT License
 # - See: LICENSE File.
 @tool
-class_name USkyStandandMaterial extends USkyStandardMaterialBase
+class_name USkyStandardMaterialBase extends USkyMaterialBase
 
 func material_is_valid() -> bool:
-	return true
+	return false
 
 func _init() -> void:
 	super()
